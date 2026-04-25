@@ -54,6 +54,13 @@ else
     echo "Note: If your host environment doesn't have external internet, this failure is expected."
 fi
 
+echo -e "\n[8] DNS Resolution Test: ns1 -> google.com"
+if ip netns exec ns1 ping -c 3 google.com; then
+    echo "✅ DNS resolution inside ns1 successful! (resolv.conf is working)"
+else
+    echo "❌ DNS resolution inside ns1 failed! (Check /etc/netns/ns1/resolv.conf)"
+fi
+
 echo -e "\n======================================"
 echo " Demo complete!"
 echo "======================================"
