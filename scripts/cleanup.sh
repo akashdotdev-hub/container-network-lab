@@ -15,6 +15,11 @@ echo "Starting cleanup..."
 for ns in $(ip netns list | awk '{print $1}'); do
     echo "Deleting namespace: $ns"
     ip netns delete "$ns" || true
+
+    # Clean up DNS configuration directory if it exists
+    if [ -d "/etc/netns/$ns" ]; then
+        rm -rf "/etc/netns/$ns"
+    fi
 done
 
 # Delete the bridge

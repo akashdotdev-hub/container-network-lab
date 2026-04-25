@@ -17,4 +17,8 @@ fi
 ip netns add "$NS_NAME"
 ip netns exec "$NS_NAME" ip link set lo up
 
-echo "Namespace $NS_NAME created."
+# Configure DNS resolution for the namespace
+mkdir -p "/etc/netns/$NS_NAME"
+echo "nameserver 8.8.8.8" > "/etc/netns/$NS_NAME/resolv.conf"
+
+echo "Namespace $NS_NAME created with DNS configured."
